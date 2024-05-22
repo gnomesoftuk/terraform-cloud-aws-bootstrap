@@ -6,11 +6,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-locals {
-  aws_oidc_provider_tfc = tfe_outputs.bootstrap.aws_oidc_provider_tfc
-  aws_oidc_client_id_list_tfc =  tfe_outputs.bootstrap.aws_oidc_client_id_list_tfc
-}
-
 # Creates a role which can only be used by the specified Terraform
 # cloud workspace.
 #
@@ -25,12 +20,12 @@ resource "aws_iam_role" "tfc_role" {
    {
      "Effect": "Allow",
      "Principal": {
-       "Federated": "${local.aws_oidc_provider_tfc}"
+       "Federated": "${var.aws_oidc_provider_tfc}"
      },
      "Action": "sts:AssumeRoleWithWebIdentity",
      "Condition": {
        "StringEquals": {
-         "${var.tfc_hostname}:aud": "${one(local.aws_oidc_client_id_list_tfc)}"
+         "${var.tfc_hostname}:aud": "${one(var.aws_oidc_client_id_list_tfc)}"
        },
        "StringLike": {
          "${var.tfc_hostname}:sub": "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:*"
