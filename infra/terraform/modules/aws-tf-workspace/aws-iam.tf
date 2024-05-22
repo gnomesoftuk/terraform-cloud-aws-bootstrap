@@ -1,17 +1,12 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-# Make sure to set the AWS_PROFILE env var before running terraform
-provider "aws" {
-  region = "us-east-1"
-}
-
 # Creates a role which can only be used by the specified Terraform
 # cloud workspace.
 #
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
 resource "aws_iam_role" "tfc_role" {
-  name = "tfc-role-${var.tfc_workspace_name}"
+  name_prefix = "tfc-role-${var.tfc_workspace_name}-"
 
   assume_role_policy = <<EOF
 {
@@ -42,7 +37,7 @@ EOF
 #
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 resource "aws_iam_policy" "tfc_policy" {
-  name        = "tfc-policy-${var.tfc_workspace_name}"
+  name_prefix        = "tfc-policy-${var.tfc_workspace_name}-"
   description = "TFC run policy"
 
   policy = <<EOF
