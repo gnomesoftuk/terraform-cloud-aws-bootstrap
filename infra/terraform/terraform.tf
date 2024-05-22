@@ -3,7 +3,7 @@ terraform {
     organization = "Gnomesoft"
 
     workspaces {
-      name = "demo-aws-s3-bootstrap-workspace"
+      name = "demo-project-aws-bootstrap"
     }
   }
 }

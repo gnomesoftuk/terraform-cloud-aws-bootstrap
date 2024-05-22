@@ -1,10 +1,6 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-provider "tfe" {
-  hostname = var.tfc_hostname
-}
-
 # Data source used to grab the project under which a workspace will be created.
 #
 # https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/project
