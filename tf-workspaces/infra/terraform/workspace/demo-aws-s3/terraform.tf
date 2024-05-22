@@ -3,7 +3,7 @@ terraform {
     organization = "Gnomesoft"
 
     workspaces {
-      name = "demo-project"
+      name = "demo-aws-s3"
     }
   }
 }
