@@ -19,4 +19,7 @@ module "tf_workspace" {
   tfc_workspace_name          = each.key
   aws_oidc_provider_tfc       = module.aws-federation.aws_oidc_provider_tfc
   aws_oidc_client_id_list_tfc = module.aws-federation.aws_oidc_client_id_list_tfc
+  vcs_org                     = var.vcs.org
+  vcs_repository              = each.key
+  vcs_branch                  = var.vcs.trunk
 }

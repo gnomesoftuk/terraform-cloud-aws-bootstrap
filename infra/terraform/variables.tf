@@ -6,6 +6,13 @@ variable "project" {
   default = "demo-project"
 }
 
+variable "vcs" {
+  type = object({
+    org = string
+    trunk = string
+  })
+}
+
 variable "workspaces" {
   type = map(any)
 }
