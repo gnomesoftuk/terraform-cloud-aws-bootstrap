@@ -11,12 +11,12 @@ module "aws-federation" {
 }
 
 module "tf_workspace" {
-    source = "./modules/aws-tf-workspace"
-    for_each = var.workspaces
+  source   = "./modules/aws-tf-workspace"
+  for_each = var.workspaces
 
-    tfc_organization_name = var.organization
-    tfc_project_name = var.project
-    tfc_workspace_name = each.key
-    aws_oidc_provider_tfc = module.aws-federation.aws_oidc_provider_tfc
-    aws_oidc_client_id_list_tfc = module.aws-federation.aws_oidc_client_id_list_tfc
+  tfc_organization_name       = var.organization
+  tfc_project_name            = var.project
+  tfc_workspace_name          = each.key
+  aws_oidc_provider_tfc       = module.aws-federation.aws_oidc_provider_tfc
+  aws_oidc_client_id_list_tfc = module.aws-federation.aws_oidc_client_id_list_tfc
 }

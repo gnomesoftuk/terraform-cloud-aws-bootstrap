@@ -1,3 +1,3 @@
 workspaces = {
-    learn-terraform-checks = {}
+  learn-terraform-checks = {}
 }
