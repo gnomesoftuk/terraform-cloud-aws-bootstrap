@@ -3,6 +3,12 @@ vcs = {
   trunk = "main"
 }
 
+defaults = {
+  working_dir = "/infra/terraform"
+}
+
 workspaces = {
-  learn-terraform-checks = {}
+  learn-terraform-checks = {
+    auto_apply = true
+  }
 }

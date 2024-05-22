@@ -17,11 +17,14 @@ resource "tfe_workspace" "team_workspace" {
   name         = var.tfc_workspace_name
   organization = var.tfc_organization_name
   project_id   = data.tfe_project.tfc_project.id
+  auto_apply =  var.auto_apply
+
+  working_directory = var.working_dir
 
   vcs_repo {
     branch                     = var.vcs_branch
     identifier                 = "${var.vcs_org}/${var.vcs_repository}"
-    github_app_installation_id = data.tfe_github_app_installation.ghe_installation.installation_id
+    github_app_installation_id = data.tfe_github_app_installation.ghe_installation.id
   }
 }
 
