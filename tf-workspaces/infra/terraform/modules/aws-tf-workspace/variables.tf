@@ -28,3 +28,12 @@ variable "tfc_project_name" {
   description = "The project under which a workspace will be created"
 }
 
+variable "aws_oidc_provider_tfc" {
+  type = string
+  description = "the oidc provider arn set in in AWS for authenicating TF cloud"
+}
+
+variable "aws_oidc_client_id_list_tfc" {
+  type = list(string)
+  description = "The client list set up in the oidc provider in AWS"
+}
