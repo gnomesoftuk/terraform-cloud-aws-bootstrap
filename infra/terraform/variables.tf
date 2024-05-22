@@ -8,13 +8,17 @@ variable "project" {
 
 variable "vcs" {
   type = object({
-    org = string
+    org   = string
     trunk = string
   })
 }
 
 variable "workspaces" {
   type = map(any)
+}
+
+variable "defaults" {
+  type = map(string)
 }
 
 variable "tfc_hostname" {

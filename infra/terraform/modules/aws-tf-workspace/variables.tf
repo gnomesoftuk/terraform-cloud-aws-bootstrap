@@ -50,4 +50,13 @@ variable "vcs_branch" {
   type = string
 }
 
+variable "working_dir" {
+  type = string
+}
+
+variable "auto_apply" {
+  type = bool
+  default = false
+}
+
 
