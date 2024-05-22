@@ -1,13 +1,13 @@
 variable "organization" {
-    default = "Gnomesoft"
+  default = "Gnomesoft"
 }
 
 variable "project" {
-    default = "demo-project"
+  default = "demo-project"
 }
 
 variable "workspaces" {
-    type = map(any)
+  type = map(any)
 }
 
 variable "tfc_hostname" {
