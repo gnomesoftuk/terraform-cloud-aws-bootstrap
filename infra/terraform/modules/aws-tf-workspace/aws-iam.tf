@@ -40,20 +40,7 @@ resource "aws_iam_policy" "tfc_policy" {
   name_prefix = "tfc-policy-${var.tfc_workspace_name}-"
   description = "TFC run policy"
 
-  policy = <<EOF
-{
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Effect": "Allow",
-     "Action": [
-       "s3:ListBucket"
-     ],
-     "Resource": "*"
-   }
- ]
-}
-EOF
+  policy = file("${path.root}/policies/${var.tfc_workspace_name}.json")
 }
 
 # Creates an attachment to associate the above policy with the
