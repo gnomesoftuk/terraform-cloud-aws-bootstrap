@@ -13,10 +13,21 @@ data "tfe_project" "tfc_project" {
 # to AWS with the permissions set in the AWS policy.
 #
 # https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace
-resource "tfe_workspace" "my_workspace" {
+resource "tfe_workspace" "team_workspace" {
   name         = var.tfc_workspace_name
   organization = var.tfc_organization_name
   project_id   = data.tfe_project.tfc_project.id
+
+  vcs_repo {
+    branch                     = var.vcs_branch
+    identifier                 = "${var.vcs_org}/${var.vcs_repository}"
+    github_app_installation_id = data.tfe_github_app_installation.ghe_installation.installation_id
+  }
+}
+
+resource "tfe_workspace_settings" "test-settings" {
+  workspace_id   = tfe_workspace.team_workspace.id
+  execution_mode = "remote"
 }
 
 # The following variables must be set to allow runs
@@ -24,7 +35,7 @@ resource "tfe_workspace" "my_workspace" {
 #
 # https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable
 resource "tfe_variable" "enable_aws_provider_auth" {
-  workspace_id = tfe_workspace.my_workspace.id
+  workspace_id = tfe_workspace.team_workspace.id
 
   key      = "TFC_AWS_PROVIDER_AUTH"
   value    = "true"
@@ -34,7 +45,7 @@ resource "tfe_variable" "enable_aws_provider_auth" {
 }
 
 resource "tfe_variable" "tfc_aws_role_arn" {
-  workspace_id = tfe_workspace.my_workspace.id
+  workspace_id = tfe_workspace.team_workspace.id
 
   key      = "TFC_AWS_RUN_ROLE_ARN"
   value    = aws_iam_role.tfc_role.arn

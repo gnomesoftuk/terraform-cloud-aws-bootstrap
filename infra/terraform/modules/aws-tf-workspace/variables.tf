@@ -29,11 +29,25 @@ variable "tfc_project_name" {
 }
 
 variable "aws_oidc_provider_tfc" {
-  type = string
+  type        = string
   description = "the oidc provider arn set in in AWS for authenicating TF cloud"
 }
 
 variable "aws_oidc_client_id_list_tfc" {
-  type = list(string)
+  type        = list(string)
   description = "The client list set up in the oidc provider in AWS"
 }
+
+variable "vcs_org" {
+  type = string
+}
+
+variable "vcs_repository" {
+  type = string
+}
+
+variable "vcs_branch" {
+  type = string
+}
+
+
