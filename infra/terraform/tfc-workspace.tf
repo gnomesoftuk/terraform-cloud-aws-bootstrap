@@ -14,7 +14,7 @@ data "tfe_project" "tfc_project" {
 }
 
 # Runs in this workspace will be automatically authenticated
-# to Azure with the permissions set in the Azure policy.
+# to AWS with the permissions set in the AWS policy.
 #
 # https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace
 resource "tfe_workspace" "my_workspace" {
@@ -24,36 +24,39 @@ resource "tfe_workspace" "my_workspace" {
 }
 
 # The following variables must be set to allow runs
-# to authenticate to Azure.
+# to authenticate to AWS.
 #
 # https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable
-resource "tfe_variable" "enable_azure_provider_auth" {
+resource "tfe_variable" "enable_aws_provider_auth" {
   workspace_id = tfe_workspace.my_workspace.id
 
-  key      = "TFC_AZURE_PROVIDER_AUTH"
+  key      = "TFC_AWS_PROVIDER_AUTH"
   value    = "true"
   category = "env"
 
-  description = "Enable the Workload Identity integration for Azure."
+  description = "Enable the Workload Identity integration for AWS."
 }
 
-resource "tfe_variable" "tfc_azure_client_id" {
+resource "tfe_variable" "tfc_aws_role_arn" {
   workspace_id = tfe_workspace.my_workspace.id
 
-  key      = "TFC_AZURE_RUN_CLIENT_ID"
-  value    = azuread_application.tfc_application.application_id
+  key      = "TFC_AWS_RUN_ROLE_ARN"
+  value    = aws_iam_role.tfc_role.arn
   category = "env"
 
-  description = "The Azure Client ID runs will use to authenticate."
+  description = "The AWS role arn runs will use to authenticate."
 }
+
+# TODO: tomorrow figure out how to configure this to use github and how to authenticate with it
+# check the kodekloud vids first
 
 # The following variables are optional; uncomment the ones you need!
 
-# resource "tfe_variable" "tfc_azure_audience" {
+# resource "tfe_variable" "tfc_aws_audience" {
 #   workspace_id = tfe_workspace.my_workspace.id
 
-#   key      = "TFC_AZURE_WORKLOAD_IDENTITY_AUDIENCE"
-#   value    = var.tfc_azure_audience
+#   key      = "TFC_AWS_WORKLOAD_IDENTITY_AUDIENCE"
+#   value    = var.tfc_aws_audience
 #   category = "env"
 
 #   description = "The value to use as the audience claim in run identity tokens"
@@ -71,15 +74,15 @@ resource "tfe_variable" "tfc_azure_client_id" {
 # See https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials/specifying-multiple-configurations
 # for more details on specifying multiple configurations.
 #
-# See https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials/azure-configuration#specifying-multiple-configurations
-# for specific requirements and details for the Azure provider.
+# See https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials/aws-configuration#specifying-multiple-configurations
+# for specific requirements and details for the AWS provider.
 
-# resource "tfe_variable" "enable_azure_provider_auth_other_config" {
+# resource "tfe_variable" "enable_aws_provider_auth_other_config" {
 #   workspace_id = tfe_workspace.my_workspace.id
 
-#   key      = "TFC_AZURE_PROVIDER_AUTH_other_config"
+#   key      = "TFC_AWS_PROVIDER_AUTH_other_config"
 #   value    = "true"
 #   category = "env"
 
-#   description = "Enable the Workload Identity integration for Azure for an additional configuration named other_config."
+#   description = "Enable the Workload Identity integration for AWS for an additional configuration named other_config."
 # }

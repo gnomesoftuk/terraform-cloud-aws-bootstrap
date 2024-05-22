@@ -1,3 +1,8 @@
-# Terraform Dynamic Credentials Setup Examples
+# Workspace bootstrap
 
-Just-in-time authentication is powerful, but the initial setup can be intimidating. This repo contains a collection of example Terraform code for bootstrapping trust between cloud platforms and Terraform Cloud.
+To bootstrap a new workspace do the following:
+
+- Create a new tfvars file in the env dir
+- Add workspace name to it
+- Deploy terraform with:
+`terraform apply --var-file env/<workspace>.tf`
