@@ -50,6 +50,10 @@ variable "vcs_branch" {
   type = string
 }
 
+variable "vcs_trigger_patterns" {
+  type = list(string)
+}
+
 variable "working_dir" {
   type = string
 }
