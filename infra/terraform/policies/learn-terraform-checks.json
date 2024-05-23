@@ -5,6 +5,21 @@
 			"Effect": "Allow",
 			"Action": "ec2:*",
 			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": "autoscaling:*",
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": "elasticloadbalancing:*",
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": "acm:ImportCertificate ",
+			"Resource": "*"
 		}
 	]
 }
