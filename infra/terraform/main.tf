@@ -22,6 +22,7 @@ module "tf_workspace" {
   vcs_org                     = var.vcs.org
   vcs_repository              = each.key
   vcs_branch                  = var.vcs.trunk
+  vcs_trigger_patterns        = ["${var.defaults.working_dir}/**/*"]
   working_dir                 = var.defaults.working_dir
   auto_apply                  = each.value.auto_apply
 }
